@@ -1,0 +1,35 @@
+const express = require("express");
+const path = require("path");
+// const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const cors = require("cors");
+
+const app = express();
+// config
+const config = require("./config/config");
+
+// database config
+const db = require("./config/db");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false })); //Parse URL-encoded bodies
+app.use(express.static(path.join(__dirname, "public")));
+app.use(morgan("dev"));
+
+app.use(cors());
+require("./app/routes")(app);
+
+// error handler
+app.use((err, req, res, next) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message; // eslint-disable-line no-param-reassign
+  res.locals.error = config.isDev ? err : {}; // eslint-disable-line no-param-reassign
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
+});
+
+app.listen(config.server.port, function (err) {
+  if (err) console.log("Error in server setup");
+  console.log("Server listening on Port", config.server.port);
+});
