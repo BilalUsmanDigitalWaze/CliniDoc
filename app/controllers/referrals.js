@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/referral", async (req, res, next) => {
   const {
     referral_source_type,
-    referral_types_id,
+    referral_type_id,
     created_by,
     patient_name,
     dob,
@@ -14,11 +14,12 @@ router.post("/referral", async (req, res, next) => {
     reason_for_referral,
     assign_by,
     email,
+    best_time_for_contact,
   } = req.body;
   console.log(req.body);
   let referral = await Referral.addReferral({
     referral_source_type,
-    referral_types_id,
+    referral_type_id,
     created_by,
     patient_name,
     dob,
@@ -26,6 +27,7 @@ router.post("/referral", async (req, res, next) => {
     reason_for_referral,
     assign_by,
     email,
+    best_time_for_contact,
   });
 
   return res.send({

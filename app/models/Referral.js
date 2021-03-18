@@ -4,7 +4,7 @@ const moment = require("moment");
 module.exports = {
   async addReferral({
     referral_source_type,
-    referral_types_id,
+    referral_type_id,
     created_by,
     patient_name,
     dob,
@@ -12,13 +12,13 @@ module.exports = {
     reason_for_referral,
     assign_by,
     email,
+    best_time_for_contact,
   }) {
-    const sql = `INSERT INTO Referrals ( referral_source_type, referral_types_id, created_by, created_at, patient_name, patient_phone,reason_for_referral,assign_by,email) VALUES ( "${referral_source_type}", ${referral_types_id}, "${created_by}",'${moment().format(
+    const sql = `INSERT INTO Referrals ( referral_source_type, referral_type_id, created_by, created_at, patient_name, patient_phone,reason_for_referral,assign_by,email,best_time_for_contact) VALUES ( "${referral_source_type}", ${referral_types_id}, "${created_by}",'${moment().format(
       "YYYY-MM-DDTHH:mm:ss"
     )}',"${patient_name}", "${patient_phone}",
          "${reason_for_referral}","${assign_by}",
-            "${email}" );`;
-
+            "${email}","${best_time_for_contact}" );`;
 
     const res = await Dao.executeQuery(sql);
     return res;
