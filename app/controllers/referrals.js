@@ -39,11 +39,7 @@ router.post("/referral", async (req, res, next) => {
 // GET REFERRALS
 
 router.get("/referral", async (req, res, next) => {
-  let referral = await Referral.getReferral({
-    referral_source_type,
-    referral_type_id,
-    created_by,
-  });
+  let referral = await Referral.getReferral();
 
   return res.send({ ResponseCode: "Success", data: referral });
 });

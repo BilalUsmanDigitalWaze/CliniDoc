@@ -33,7 +33,7 @@ module.exports = {
     return res;
   },
 
-  async getReferral(email, password) {
+  async getReferral() {
     const sql = `select * from Referrals`;
     const res = await Dao.executeQuery(sql);
     console.log("res");
@@ -41,7 +41,7 @@ module.exports = {
     return res;
   },
 
-  async updateReferral(email, password) {
+  async updateReferral() {
     const sql = `select * from Profile where email="${email}" AND password="${password}"`;
     const res = await Dao.executeQuery(sql);
     console.log("res");
