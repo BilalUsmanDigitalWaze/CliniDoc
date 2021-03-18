@@ -17,6 +17,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 
 app.use(cors());
+app.options("*", cors());
+
 require("./app/routes")(app);
 
 // error handler

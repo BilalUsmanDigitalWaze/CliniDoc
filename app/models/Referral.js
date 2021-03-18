@@ -14,23 +14,23 @@ module.exports = {
     email,
     best_time_for_contact,
   }) {
-    const sql = `INSERT INTO Referrals (referral_source_type, referral_type_id, created_by, created_at ,patient_name,patient_phone,
+    try {
+      const sql = `INSERT INTO Referrals (referral_source_type, referral_type_id, created_by, created_at ,patient_name,patient_phone,
     reason_for_referral,
     assign_by,
     email,best_time_for_contact ) VALUES ("${referral_source_type}", ${referral_type_id}, "${created_by}",'${moment().format(
-      "YYYY-MM-DDTHH:mm:ss"
-    )}',"${patient_name}","${patient_phone}",
+        "YYYY-MM-DDTHH:mm:ss"
+      )}',"${patient_name}","${patient_phone}",
               "${reason_for_referral}","${assign_by}",
                 "${email}","${best_time_for_contact}");`;
 
-    //                 const sql = `INSERT INTO Referrals ( referral_source_type, referral_type_id, created_by, created_at, patient_name, patient_phone,reason_for_referral,assign_by,email) VALUES ( "${referral_source_type}", ${referral_type_id}, "${created_by}",'${moment().format(
-    //                   "YYYY-MM-DDTHH:mm:ss"
-    //                 )}',"${patient_name}", "${patient_phone}",
-    //          "${reason_for_referral}","${assign_by}",
-    //             "${email}" );`;
-
-    const res = await Dao.executeQuery(sql);
-    return res;
+      const res = await Dao.executeQuery(sql);
+      return res;
+    } catch (exp) {
+      return response
+        .status(400)
+        .send({ errorMessage: exp.message, ResponseCode: "Fail" });
+    }
   },
 
   async getReferral() {
