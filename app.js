@@ -42,7 +42,3 @@ app.listen(config.server.port, function (err) {
   if (err) console.log("Error in server setup");
   console.log("Server listening on Port", config.server.port);
 });
-
-app.get("/", () => {
-  console.log(process.env.ACCESS_TOKEN_SECRET);
-});

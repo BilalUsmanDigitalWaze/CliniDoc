@@ -4,7 +4,7 @@ const config = {
   development: {
     server: {
       port: process.env.PORT || 3000,
-      hostname: process.env.HOSTNAME || "localhost",
+      hostname: process.env.HOST || "localhost",
     },
     database: {
       host: process.env.DB_HOST,
@@ -17,7 +17,7 @@ const config = {
   test: {
     server: {
       port: process.env.PORT || 3100,
-      hostname: process.env.HOSTNAME || "localhost",
+      hostname: process.env.HOST || "localhost",
     },
     database: {
       url: process.env.DB_HOST,
@@ -27,7 +27,7 @@ const config = {
   production: {
     server: {
       port: process.env.PORT || 3200,
-      hostname: process.env.HOSTNAME || "localhost",
+      hostname: process.env.HOST || "localhost",
     },
     database: {
       url: "mongodb://mongo:27017/express-production",
