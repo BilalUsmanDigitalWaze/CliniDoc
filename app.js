@@ -1,8 +1,15 @@
 const express = require("express");
 const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname + "/.env"),
+});
+const jwt = require("jsonwebtoken");
+
 // const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
+// secret key
+const accessTokenSecret = "cliniDoc";
 
 const app = express();
 // config
@@ -34,4 +41,8 @@ app.use((err, req, res, next) => {
 app.listen(config.server.port, function (err) {
   if (err) console.log("Error in server setup");
   console.log("Server listening on Port", config.server.port);
+});
+
+app.get("/", () => {
+  console.log(process.env.ACCESS_TOKEN_SECRET);
 });
