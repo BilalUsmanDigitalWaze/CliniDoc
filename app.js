@@ -3,7 +3,7 @@ const path = require("path");
 require("dotenv").config({
   path: path.resolve(__dirname + "/.env"),
 });
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 // const bodyParser = require("body-parser");
 const morgan = require("morgan");

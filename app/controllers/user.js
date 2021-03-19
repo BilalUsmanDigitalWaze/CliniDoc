@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 // LOGIN API
 router.post("/login", async (req, res, next) => {
@@ -18,11 +18,11 @@ router.post("/login", async (req, res, next) => {
     }
     delete user[0].password;
 
-    const accessToken = jwt.sign(
-      { email: email, password: password },
-      process.env.ACCESS_TOKEN_SECRET
-    );
-    res.header("token", accessToken);
+    // const accessToken = jwt.sign(
+    //   { email: email, password: password },
+    //   process.env.ACCESS_TOKEN_SECRET
+    // );
+    // res.header("token", accessToken);
     return res.send({ ResponseCode: "Success", data: user });
   } catch (ex) {
     return res.status(400).send({
