@@ -17,5 +17,3 @@ module.exports = {
     return response;
   },
 };
-
-// module.exports = sendEmail;

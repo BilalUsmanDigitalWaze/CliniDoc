@@ -1,9 +1,9 @@
 const Referral = require("../models/Referral");
+const ReferralLog = require("../models/ReferralLogs");
+
 const express = require("express");
 const router = express.Router();
-var MailConfig = require("../services/emailService");
-var hbs = require("nodemailer-express-handlebars");
-var gmailTransport = MailConfig.GmailTransport;
+
 const mailService = require("../../app/services/emailService");
 // ADD REFERRALS
 router.post("/referral", async (req, res, next) => {
@@ -54,8 +54,6 @@ router.get("/referral", async (req, res, next) => {
   return res.send({ ResponseCode: "Success", data: referral });
 });
 
-// var smtpTransport = MailConfig.SMTPTransport;
-
 router.post("/referral/sendmail", async (req, res, next) => {
   const { email, subject, content } = req.body;
 
@@ -63,6 +61,38 @@ router.post("/referral/sendmail", async (req, res, next) => {
 
   console.log(response);
   return res.send({ ...response });
+});
+
+// logs
+router.post("/referral/log", async (req, res, next) => {
+  const {
+    referral_id,
+    call_status,
+    receptionist_name,
+    duration_in_sec,
+    call_date_and_time,
+    notes,
+  } = req.body;
+
+  let referralLog = await ReferralLog.addReferralLog({
+    referral_id,
+    call_status,
+    receptionist_name,
+    duration_in_sec,
+    call_date_and_time,
+    notes,
+  });
+
+  return res.send({
+    ResponseCode: "Success",
+    message: "insert data successfully",
+  });
+});
+
+router.get("/referral/logs", async (req, res, next) => {
+  let referralLogs = await ReferralLog.getReferralLogs();
+
+  return res.send({ ResponseCode: "Success", data: referralLogs });
 });
 
 module.exports = router;
