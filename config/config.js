@@ -12,6 +12,10 @@ const config = {
       password: process.env.DB_PASSWORD,
       name: process.env.DB_DATABASE,
     },
+    emailAuth: {
+      user: process.env.GMAIL_USER_NAME,
+      pass: process.env.GMAIL_USER_PASSWORD,
+    },
   },
 
   test: {
