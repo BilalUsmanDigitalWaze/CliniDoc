@@ -9,12 +9,16 @@ router.post("/referral", async (req, res, next) => {
     referral_type_id,
     created_by,
     patient_name,
-    dob,
+    patient_dob,
     patient_phone,
     reason_for_referral,
     assign_by,
-    email,
+    patient_email,
     best_time_for_contact,
+    name_of_practice,
+    phone_no_practice,
+    email_of_contact_person,
+    relationship_to_patient,
   } = req.body;
   console.log(req.body);
   let referral = await Referral.addReferral({
@@ -22,12 +26,16 @@ router.post("/referral", async (req, res, next) => {
     referral_type_id,
     created_by,
     patient_name,
-    dob,
+    patient_dob,
     patient_phone,
     reason_for_referral,
     assign_by,
-    email,
+    patient_email,
     best_time_for_contact,
+    name_of_practice,
+    phone_no_practice,
+    email_of_contact_person,
+    relationship_to_patient,
   });
 
   return res.send({

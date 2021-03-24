@@ -7,22 +7,38 @@ module.exports = {
     referral_type_id,
     created_by,
     patient_name,
-    dob,
     patient_phone,
     reason_for_referral,
     assign_by,
-    email,
+    patient_email,
     best_time_for_contact,
+    name_of_practice,
+    phone_no_practice,
+    email_of_contact_person,
+    relationship_to_patient,
+    patient_dob,
   }) {
     try {
       const sql = `INSERT INTO Referrals (referral_source_type, referral_type_id, created_by, created_at ,patient_name,patient_phone,
     reason_for_referral,
     assign_by,
-    email,best_time_for_contact ) VALUES ("${referral_source_type}", ${referral_type_id}, "${created_by}",'${moment().format(
+    patient_email,best_time_for_contact,name_of_practice,
+    phone_no_practice,
+    email_of_contact_person,
+    relationship_to_patient ,patient_dob ) VALUES ("${
+      referral_source_type || ""
+    }", ${referral_type_id || ""}, "${created_by || ""}",'${moment().format(
         "YYYY-MM-DDTHH:mm:ss"
-      )}',"${patient_name}","${patient_phone}",
-              "${reason_for_referral}","${assign_by}",
-                "${email}","${best_time_for_contact}");`;
+      )}',"${patient_name || ""}","${patient_phone || ""}",
+              "${reason_for_referral || ""}","${assign_by || ""}",
+                "${patient_email || ""}","${
+        best_time_for_contact || moment().format("YYYY-MM-DDTHH:mm:ss")
+      }","${name_of_practice || ""}","${phone_no_practice || ""}","${
+        email_of_contact_person || ""
+      }","${relationship_to_patient || ""}","${
+        patient_dob || moment().format("YYYY-MM-DDTHH:mm:ss")
+      }"
+       );`;
 
       const res = await Dao.executeQuery(sql);
       return res;
