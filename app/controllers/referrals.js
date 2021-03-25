@@ -95,4 +95,14 @@ router.get("/referral/logs", async (req, res, next) => {
   return res.send({ ResponseCode: "Success", data: referralLogs });
 });
 
+// update referral
+
+router.patch("/referral", async (req, res, next) => {
+  const { id, status_id } = req.body;
+
+  let referral = await Referral.updateReferralStatus({ id, status_id });
+
+  return res.send({ ResponseCode: "Success", data: referral });
+});
+
 module.exports = router;

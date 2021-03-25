@@ -57,8 +57,9 @@ module.exports = {
     return res;
   },
 
-  async updateReferral() {
-    const sql = `select * from Profile where email="${email}" AND password="${password}"`;
+  async updateReferralStatus({ id, status_id }) {
+    console.log();
+    const sql = `UPDATE Referrals SET status_id=${status_id} where id=${id}`;
     const res = await Dao.executeQuery(sql);
     console.log("res");
     console.log(res);
