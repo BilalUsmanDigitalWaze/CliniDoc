@@ -37,7 +37,7 @@ module.exports = {
         email_of_contact_person || ""
       }","${relationship_to_patient || ""}","${
         patient_dob || moment().format("YYYY-MM-DDTHH:mm:ss")
-      }",0
+      }",1
        );`;
 
       const res = await Dao.executeQuery(sql);
