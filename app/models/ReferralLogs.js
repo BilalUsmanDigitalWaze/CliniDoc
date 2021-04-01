@@ -34,8 +34,8 @@ module.exports = {
     }
   },
 
-  async getReferralLogs() {
-    const sql = `select * from ReferralLogs`;
+  async getReferralLogs({ referral_id }) {
+    const sql = `select * from ReferralLogs where referral_id=${referral_id}`;
     const res = await Dao.executeQuery(sql);
     console.log("res");
     console.log(res);

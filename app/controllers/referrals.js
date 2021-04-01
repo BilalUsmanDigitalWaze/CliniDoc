@@ -90,7 +90,9 @@ router.post("/referral/log", async (req, res, next) => {
 });
 
 router.get("/referral/logs", async (req, res, next) => {
-  let referralLogs = await ReferralLog.getReferralLogs();
+  const { referral_id } = req.query;
+
+  let referralLogs = await ReferralLog.getReferralLogs({ referral_id });
 
   return res.send({ ResponseCode: "Success", data: referralLogs });
 });
