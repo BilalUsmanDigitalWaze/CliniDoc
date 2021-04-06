@@ -7,8 +7,11 @@ const verifyToken = require("../verifyToken/verifyToken");
 
 router.get(
   "/doctors",
-  // check('department_id').not().isEmpty().isInt().withMessage('Please enter valid Department Id')
-  // ,
+  check("department_id")
+    .not()
+    .isEmpty()
+    .isInt()
+    .withMessage("Please enter valid Department Id"),
   async (req, res, next) => {
     const token = await verifyToken(req.headers["authorization"].split(" ")[1]);
     if (token.status == 200) {
