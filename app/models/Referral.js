@@ -25,7 +25,7 @@ module.exports = {
     patient_email,best_time_for_contact,name_of_practice,
     phone_no_practice,
     email_of_contact_person,
-    relationship_to_patient ,patient_dob ) VALUES ("${
+    relationship_to_patient ,patient_dob,status_id ) VALUES ("${
       referral_source_type || ""
     }", ${referral_type_id || ""}, "${created_by || ""}",'${moment().format(
         "YYYY-MM-DDTHH:mm:ss"
@@ -37,9 +37,8 @@ module.exports = {
         email_of_contact_person || ""
       }","${relationship_to_patient || ""}","${
         patient_dob || moment().format("YYYY-MM-DDTHH:mm:ss")
-      }"
+      }",1
        );`;
-
       const res = await Dao.executeQuery(sql);
       return res;
     } catch (exp) {
@@ -57,8 +56,9 @@ module.exports = {
     return res;
   },
 
-  async updateReferral() {
-    const sql = `select * from Profile where email="${email}" AND password="${password}"`;
+  async updateReferralStatus({ id, status_id }) {
+    console.log();
+    const sql = `UPDATE Referrals SET status_id=${status_id} where id=${id}`;
     const res = await Dao.executeQuery(sql);
     console.log("res");
     console.log(res);

@@ -1,29 +1,40 @@
 const User = require("../models/User");
+const Patient = require("../models/Patient");
 const express = require("express");
 const router = express.Router();
-// const jwt = require("jsonwebtoken");
+const {validationResult,body}=require("express-validator")
+const dotenv=require('dotenv')
+dotenv.config();
+
+const jwt = require("jsonwebtoken");
 
 // LOGIN API
-router.post("/login", async (req, res, next) => {
-  const { email, password } = req.body;
-  console.log(req.body);
-  try {
-    let user = await User.getUser(req.body.email, req.body.password);
-    console.log(user);
-    if (!user) {
-      return res.status(400).send({
-        ResponseCode: "Fail",
-        message: "invalid user id or password",
-      });
+router.post("/login", 
+  body('email').not().isEmpty().isEmail(),
+  body('password').not().isEmpty(),
+  async (req, res, next) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
     }
-    delete user[0].password;
-
-    // const accessToken = jwt.sign(
-    //   { email: email, password: password },
-    //   process.env.ACCESS_TOKEN_SECRET
-    // );
-    // res.header("token", accessToken);
-    return res.send({ ResponseCode: "Success", data: user });
+  try {
+    // let user = await User.getUser(req.body.email, req.body.password);
+    // console.log(user);
+    // if (!user) {
+    //   return res.status(400).send({
+    //     ResponseCode: "Fail",
+    //     message: "invalid user id or password",
+    //   });
+    // }
+    // delete user[0].password;
+    const accessToken = jwt.sign(
+      { email: req.body.email, password: req.body.password },
+      process.env.ACCESS_TOKEN_SECRET
+    );
+    res.header("token", accessToken);
+    console.log(accessToken)
+    return res.send({ ResponseCode: "Success", data: accessToken });
+  
   } catch (ex) {
     return res.status(400).send({
       ResponseCode: "Fail",

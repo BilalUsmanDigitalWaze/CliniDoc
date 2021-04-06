@@ -27,7 +27,7 @@ app.use(cors());
 app.options("*", cors());
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+// app.set("view engine", "jade");
 require("./app/routes")(app);
 
 // error handler
@@ -37,7 +37,8 @@ app.use((err, req, res, next) => {
   res.locals.error = config.isDev ? err : {}; // eslint-disable-line no-param-reassign
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  console.log(err.status, err.message);
+  res.send("error");
 });
 
 app.listen(config.server.port, function (err) {
