@@ -33,6 +33,8 @@ router.post(
         process.env.ACCESS_TOKEN_SECRET
       );
       res.header("authorization", `${accessToken}`);
+      res.header("Access-Control-Expose-Headers", `*`);
+
       console.log(accessToken);
       return res.send({ ResponseCode: "Success", data: accessToken });
     } catch (ex) {
