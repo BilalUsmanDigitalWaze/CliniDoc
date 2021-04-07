@@ -26,6 +26,10 @@ const config = {
     database: {
       url: process.env.DB_HOST,
     },
+    emailAuth: {
+      user: process.env.GMAIL_USER_NAME,
+      pass: process.env.GMAIL_USER_PASSWORD,
+    },
   },
 
   production: {
@@ -35,6 +39,10 @@ const config = {
     },
     database: {
       url: "mongodb://mongo:27017/express-production",
+    },
+    emailAuth: {
+      user: process.env.GMAIL_USER_NAME,
+      pass: process.env.GMAIL_USER_PASSWORD,
     },
   },
 };
