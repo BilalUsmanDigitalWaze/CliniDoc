@@ -106,15 +106,25 @@ router.post(
   body("subject").not().isEmpty().isString(),
   body("content").not().isEmpty().isString(),
   async (req, res, next) => {
-    const token = await verifyToken(req.headers["authorization"].split(" ")[1]);
-    if (token.status == 200) {
-      const { email, subject, content } = req.body;
+    try {
+      const token = await verifyToken(
+        req.headers["authorization"].split(" ")[1]
+      );
+      if (token.status == 200) {
+        const { email, subject, content } = req.body;
 
-      const response = await mailService.sendEmail({ email, subject, content });
+        const response = await mailService.sendEmail({
+          email,
+          subject,
+          content,
+        });
 
-      return res.send({ ...response });
-    } else {
-      return res.send({ ResponseCode: "Fail", data: token.message });
+        return res.send({ ...response });
+      } else {
+        return res.send({ ResponseCode: "Fail", data: token.message });
+      }
+    } catch (ex) {
+      return res.send({ ResponseCode: "Fail", message: ex.message });
     }
   }
 );
