@@ -23,8 +23,8 @@ module.exports = {
       to: email,
       from: config.emailAuth.user,
       subject: subject,
-      text: content,
-      html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+      // text: content,
+      html: content,
     };
     // sgMail.send(msg);
     // const response = await transporter.sendMail(mailOptions);
