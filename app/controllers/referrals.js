@@ -119,7 +119,10 @@ router.post(
           content,
         });
 
-        return res.send({ ...response });
+        return res.send({
+          ResponseCode: "Success",
+          message: "email send successfully",
+        });
       } else {
         return res.send({ ResponseCode: "Fail", data: token.message });
       }

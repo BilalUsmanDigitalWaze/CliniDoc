@@ -13,8 +13,11 @@ const config = {
       name: process.env.DB_DATABASE,
     },
     emailAuth: {
-      user: process.env.GMAIL_USER_NAME,
-      pass: process.env.GMAIL_USER_PASSWORD,
+      // user: process.env.GMAIL_USER_NAME,
+      // pass: process.env.GMAIL_USER_PASSWORD,
+      user: process.env.SMTP_USER_NAME,
+      pass: process.env.SMTP_USER_PASSWORD,
+      api: process.env.SENDGRID_API_KEY,
     },
   },
 
@@ -27,8 +30,11 @@ const config = {
       url: process.env.DB_HOST,
     },
     emailAuth: {
-      user: process.env.GMAIL_USER_NAME,
-      pass: process.env.GMAIL_USER_PASSWORD,
+      // user: process.env.GMAIL_USER_NAME,
+      // pass: process.env.GMAIL_USER_PASSWORD,
+      user: process.env.SMTP_USER_NAME,
+      pass: process.env.SMTP_USER_PASSWORD,
+      api: process.env.SENDGRID_API_KEY,
     },
   },
 
@@ -41,8 +47,12 @@ const config = {
       url: "mongodb://mongo:27017/express-production",
     },
     emailAuth: {
-      user: process.env.GMAIL_USER_NAME,
-      pass: process.env.GMAIL_USER_PASSWORD,
+      // user: process.env.GMAIL_USER_NAME,
+      // pass: process.env.GMAIL_USER_PASSWORD,
+
+      user: process.env.SMTP_USER_NAME,
+      pass: process.env.SMTP_USER_PASSWORD,
+      api: process.env.SENDGRID_API_KEY,
     },
   },
 };
