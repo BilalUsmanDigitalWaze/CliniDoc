@@ -3,7 +3,7 @@ const moment = require("moment");
 
 module.exports = {
   async insertUser() {
-    // const sql = `select * from room_master where id=${room_id}`;
+    const sql = `select * from room_master where id=${room_id}`;
     const res = await Dao.executeQuery(sql);
     return res;
   },

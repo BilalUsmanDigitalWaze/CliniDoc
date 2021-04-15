@@ -35,13 +35,7 @@ module.exports = {
   // },
 
   async getScheduleAccToDoctor(doctorId) {
-    // const sql = `select schedule.*, slot.*, hour.* from schedule INNER JOIN slots slot INNER JOIN hours hour ON slot.hour_id=hour.id and schedule.doctor_id=${doctorId}`;
-
-    const sql = `select schedule.id as schedule_id, slot.*, hour.* from schedule INNER JOIN slots slot INNER JOIN hours hour ON slot.hour_id=hour.id and schedule.doctor_id=${doctorId}`;
-
-    // const sql = `SELECT sch.id as schedule_id,usr.id , usr.socket_id FROM visits rd, users usr WHERE rd.visit_id=${visit_id}
-    //     AND ( rd.contractor_user_id = usr.id  OR rd.customer_user_id = usr.id ) `;
-
+    const sql = `select schedule.*, slot.*, hour.* from schedule INNER JOIN slots slot INNER JOIN hours hour ON slot.hour_id=hour.id and schedule.doctor_id=${doctorId}`;
     let res = await Dao.executeQuery(sql);
     return res;
   },
@@ -57,8 +51,7 @@ module.exports = {
     //       list.push(res)
     //     })
 
-    const sql =
-      "SELECT s.id as schedule_id,s.doctor_id, sl.id as slot_id , sl.hour FROM schedule s INNER JOIN slots sl ON s.slot_id = sl.id";
+    const sql = `select schedule.*, slot.*, hour.* from schedule INNER JOIN slots slot INNER JOIN hours hour ON slot.hour_id=hour.id and schedule.doctor_id=${doctorId} and slot.day="${days[0]}"`;
     res = await Dao.executeQuery(sql);
 
     // returning undefined

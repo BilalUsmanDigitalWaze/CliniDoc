@@ -49,4 +49,24 @@ router.get("/doctor/departments", async (req, res, next) => {
   }
 });
 
+
+router.post("/doctor/setSlot",async(req,res,next)=>{
+  try {
+    const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+    // const token={status:200}
+    if(token.status==200){
+      const {slotId,doctorId,fromDate,toDate}=req.body
+      let slots = await Doctor.setDoctorSlot({slotId,doctorId,fromDate,toDate});
+      return res.send({ ResponseCode: "Success", data: slots });  
+    }else{
+      return res.send({ResponseCode:"Fail",data:token.message})
+    }
+  } catch (ex) {
+    return res.status(400).send({
+      ResponseCode: "Fail",
+      errorMessage: ex.message,
+    });
+
+  }
+})
 module.exports = router;

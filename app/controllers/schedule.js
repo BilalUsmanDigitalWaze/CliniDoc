@@ -13,8 +13,8 @@ router.post(
     .withMessage("Please enter valid doctor Id"),
   async (req, res, next) => {
     try {
-      // const token = await verifyToken(req.headers['authorization'].split(' ')[1])
-      const token = { status: 200 };
+      const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+      // const token = { status: 200 };
       if (token.status == 200) {
         const { doctor_id } = req.body;
         let schedule = await Schedule.getScheduleAccToDoctor(doctor_id);

@@ -33,6 +33,7 @@ router.post(
         process.env.ACCESS_TOKEN_SECRET
       );
       res.header("authorization", `bearer ${accessToken}`);
+
       res.header("Access-Control-Expose-Headers", `*`);
 
       console.log(accessToken);
