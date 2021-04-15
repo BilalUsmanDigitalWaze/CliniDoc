@@ -21,9 +21,9 @@ router.post("/appointment",
 
 async (req, res, next) => {
   
-  // const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+  const token = await verifyToken(req.headers['authorization'].split(' ')[1])
   console.log(req.headers)
-  
+  // const token= {status:200}
   if(token.status==200){
       const errors = validationResult(req)
       if (!errors.isEmpty()) {

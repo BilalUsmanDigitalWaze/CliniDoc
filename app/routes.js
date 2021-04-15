@@ -7,4 +7,5 @@ module.exports = function (app) {
   app.use("/", require("./controllers/appointment"));
   app.use("/", require("./controllers/schedule"));
   app.use("/", require("./controllers/receptionist"));
+  app.use("/", require("./controllers/patient"));
 };
