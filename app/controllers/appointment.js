@@ -23,7 +23,7 @@ async (req, res, next) => {
   
   const token = await verifyToken(req.headers['authorization'].split(' ')[1])
   console.log(req.headers)
-  
+  // const token= {status:200}
   if(token.status==200){
       const errors = validationResult(req)
       if (!errors.isEmpty()) {
@@ -46,4 +46,46 @@ async (req, res, next) => {
   }
   });
   
+
+router.get("/appointments",async(req,res)=>{
+
+  try {
+    const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+    console.log(req.headers)
+    // const token= {status:200}
+    if(token.status==200){
+      let appointment = await Appointment.getAppointments();
+      return res.send({ ResponseCode: "Success", data:appointment});
+    }else{
+      return res.send({ResponseCode:"Fail",data:token.message})
+
+    }
+  } catch (error) {
+      return res.status(400).send({
+        ResponseCode: "Fail",
+        errorMessage: ex.message,
+      });
+  }
+})
+
+router.get("/appointments/waiting",async(req,res)=>{
+
+  try {
+    const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+    console.log(req.headers)
+    // const token= {status:200}
+    if(token.status==200){
+      let appointment = await Appointment.getAppointmentWaitingList();
+      return res.send({ ResponseCode: "Success", data:appointment});
+    }else{
+      return res.send({ResponseCode:"Fail",data:token.message})
+
+    }
+  } catch (error) {
+      return res.status(400).send({
+        ResponseCode: "Fail",
+        errorMessage: ex.message,
+      });
+  }
+})
 module.exports=router

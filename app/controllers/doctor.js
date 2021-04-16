@@ -9,6 +9,7 @@ router.get("/doctors",
   check('department_id').not().isEmpty().isInt().withMessage('Please enter valid Department Id')
   ,async (req, res, next) => {
     const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+   
     if(token.status==200){
       const { department_id } = req.query;
       try {
@@ -34,6 +35,7 @@ router.get("/doctors",
 router.get("/doctor/departments", async (req, res, next) => {
   try {
     const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+    
     if(token.status==200){
       let departments = await Department.getDepartments();
       return res.send({ ResponseCode: "Success", data: departments });  
@@ -49,4 +51,24 @@ router.get("/doctor/departments", async (req, res, next) => {
   }
 });
 
+
+router.post("/doctor/setSlot",async(req,res,next)=>{
+  try {
+    const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+    // const token={status:200}
+    if(token.status==200){
+      const {slotId,doctorId,fromDate,toDate}=req.body
+      let slots = await Doctor.setDoctorSlot({slotId,doctorId,fromDate,toDate});
+      return res.send({ ResponseCode: "Success", data: slots });  
+    }else{
+      return res.send({ResponseCode:"Fail",data:token.message})
+    }
+  } catch (ex) {
+    return res.status(400).send({
+      ResponseCode: "Fail",
+      errorMessage: ex.message,
+    });
+
+  }
+})
 module.exports = router;
