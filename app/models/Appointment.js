@@ -16,5 +16,24 @@ module.exports = {
         res1= {appoitnment:res,schedule:res1}
         return res1;
   },
+  async getAppointments(){
+    const sql=`SELECT Patient.*,Administrator.* FROM Appointment INNER JOIN Patient INNER JOIN Administrator ON Appointment.administrator_id=Administrator.id and Appointment.patient_id=Patient.id `
+    const res = await Dao.executeQuery(sql);
+    return res;
+  },
+  async getAppointmentWaitingList(){
 
+    //schedule_type_id=1 is for waiting 
+
+    const sql=`SELECT Appointment.*,Schedule_type.*,Patient.*,Administrator.*, Schedule.*
+      FROM Appointment INNER JOIN Schedule INNER JOIN Administrator 
+      INNER JOIN Schedule_type INNER JOIN Patient ON
+      Appointment.administrator_id=Administrator.id 
+      and Appointment.patient_id=Patient.id 
+      and Appointment.schedule_id=Schedule.id and Schedule.schedult_type_id=1`
+
+    const res = await Dao.executeQuery(sql);
+    return res;
+  
+  }
 };

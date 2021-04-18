@@ -35,4 +35,24 @@ router.post("/receptionistDetails",
       }
 });
 
+router.get("/receptionists", 
+  async (req, res, next) => {
+    try {
+        const token = await verifyToken(req.headers['authorization'].split(' ')[1])
+        // const token = { status: 200 };
+        if (token.status == 200) {
+       
+          let recep = await receptionist.getReceptionists();
+          return res.send({ ResponseCode: "Success", data: recep });
+        } else {
+          return res.send({ ResponseCode: "Fail", data: token.message });
+        }
+      } catch (ex) {
+        return res.status(400).send({
+          ResponseCode: "Fail",
+          errorMessage: ex.message,
+        });
+      }
+});
+
 module.exports = router;
